@@ -3,7 +3,6 @@ import { useState } from "react"
 export const Todo = () => {
 
     // All states 
-
     const [todos, setTodo] = useState([
         {
             id: 1,
@@ -25,6 +24,7 @@ export const Todo = () => {
     // This state is created where we can store the input 
     const [input, setinput] = useState("")
 
+    // Add function logic
     const addtodo = () => {
 
         // For Remove of the white space we use trim in the input 
@@ -41,6 +41,13 @@ export const Todo = () => {
         setinput("")
 
         console.log(todos)
+    }
+
+    // Delete function logic 
+    const deletetodo = (id) => {
+        const updatedtodo = todos.filter((todo) => todo.id !== id)
+
+        setTodo(updatedtodo)
     }
 
 
@@ -76,22 +83,22 @@ export const Todo = () => {
                 {/* use map method Mapping to make Todo list UI visible */}
                 {
                     todos.map((todo) => {
-                        return(
+                        return (
                             <div className="todo-list">
-                            {/* Todo item */}
-                            <div className="todo-item" key={todo.id}>
-                                <div className="todo-content">
-                                    <input type="checkbox" />
+                                {/* Todo item */}
+                                <div className="todo-item" key={todo.id}>
+                                    <div className="todo-content">
+                                        <input type="checkbox" />
 
-                                    <span>{todo.title}</span>
-                                </div>
+                                        <span>{todo.title}</span>
+                                    </div>
 
-                                <div className="todo-actions">
-                                    <button>Edit</button>
-                                    <button>Delete</button>
+                                    <div className="todo-actions">
+                                        <button>Edit</button>
+                                        <button onClick={() => deletetodo(todo.id)}>Delete</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         )
                     })
                 }
