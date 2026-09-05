@@ -50,6 +50,21 @@ export const Todo = () => {
         setTodo(updatedtodo)
     }
 
+    // Completed toggle function logic 
+    const toggletodo = (id) => {
+        const updatedtoggle = todos.map((todo) => {
+
+            if (todo.id === id) {
+                return {
+                    ...todo,
+                    completed: !todo.completed
+                }
+            }
+            return todo
+        })
+
+        setTodo(updatedtoggle)
+    }
 
     return (
         <>
@@ -86,9 +101,10 @@ export const Todo = () => {
                         return (
                             <div className="todo-list">
                                 {/* Todo item */}
-                                <div className="todo-item" key={todo.id}>
+                                {/* We use ternary opertaor to add completed */}
+                                <div className={`todo-item ${todo.completed ? "completed" : " "}`} key={todo.id}>
                                     <div className="todo-content">
-                                        <input type="checkbox" />
+                                        <input type="checkbox" checked={todo.completed} onChange={() => toggletodo(todo.id)} />
 
                                         <span>{todo.title}</span>
                                     </div>
