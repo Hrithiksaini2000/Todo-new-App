@@ -1,4 +1,8 @@
 import { useState } from "react"
+import { TodoHeader } from "./TodoHeader"
+import { TodoInput } from "./TodoInput"
+import { TodoList } from "./TodoList"
+import { TodoFooter } from "./TodoFooter"
 
 export const Todo = () => {
 
@@ -71,22 +75,11 @@ export const Todo = () => {
             <div className="todo-container">
 
                 {/* Todo Header */}
-                <div className="todo-header">
-                    <h1>My Todo App</h1>
-                    <p>Manage your daily tasks</p>
-                </div>
+                <TodoHeader />
 
                 {/* Todo input */}
-                <div className="todo-input">
-                    <input
-                        type="text"
-                        placeholder="What needs to be done?"
-                        value={input}
-                        onChange={(e) => setinput(e.target.value)}
-                    />
-
-                    <button onClick={addtodo}>Add</button>
-                </div>
+                {/* Props names can be use different */}
+                <TodoInput text={input} changetext={setinput} add={addtodo} />
 
                 {/* Filter buttons */}
                 <div className="filter-buttons">
@@ -99,30 +92,13 @@ export const Todo = () => {
                 {
                     todos.map((todo) => {
                         return (
-                            <div className="todo-list">
-                                {/* Todo item */}
-                                {/* We use ternary opertaor to add completed */}
-                                <div className={`todo-item ${todo.completed ? "completed" : " "}`} key={todo.id}>
-                                    <div className="todo-content">
-                                        <input type="checkbox" checked={todo.completed} onChange={() => toggletodo(todo.id)} />
-
-                                        <span>{todo.title}</span>
-                                    </div>
-
-                                    <div className="todo-actions">
-                                        <button>Edit</button>
-                                        <button onClick={() => deletetodo(todo.id)}>Delete</button>
-                                    </div>
-                                </div>
-                            </div>
+                            <TodoList key={todo.id} todo={todo} toggle={toggletodo} ondelete={deletetodo}/>
                         )
                     })
                 }
 
                 {/* Todo statistics - just UI for now */}
-                <div className="todo-footer">
-                    <p>2 tasks remaining</p>
-                </div>
+                <TodoFooter/>
 
             </div>
         </>
