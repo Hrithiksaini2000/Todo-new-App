@@ -70,6 +70,39 @@ export const Todo = () => {
         setTodo(updatedtoggle)
     }
 
+    // Edit functionality state is created 
+    const [editId, setEditId] = useState(null)
+
+    const [editText, seteditText] = useState("")
+
+    // edit functionality
+    const startEdit = (id) => {
+
+        const todo = todos.find((todo) => todo.id === id)
+
+        setEditId(id)
+        seteditText(todo.title)
+        console.log(editId)
+    }
+
+    // Save the edit functionality 
+    const saveEdit = (id) => {
+
+        const updatetodo = todos.map((todo) => {
+            if (todo.id === id) {
+                return ({
+                    ...todo,
+                    title: editText
+                })
+            }
+            return todo
+        })
+
+        setTodo(updatetodo)
+        setEditId(null)
+        seteditText("")
+    }
+
     return (
         <>
             <div className="todo-container">
@@ -92,13 +125,13 @@ export const Todo = () => {
                 {
                     todos.map((todo) => {
                         return (
-                            <TodoList key={todo.id} todo={todo} toggle={toggletodo} ondelete={deletetodo}/>
+                            <TodoList key={todo.id} todo={todo} toggle={toggletodo} ondelete={deletetodo} onedit={startEdit} editId={editId} editText={editText} seteditText={seteditText} saveEdit={saveEdit} />
                         )
                     })
                 }
 
                 {/* Todo statistics - just UI for now */}
-                <TodoFooter/>
+                <TodoFooter />
 
             </div>
         </>

@@ -42,7 +42,10 @@ button {
   gap: 10px;
   margin-bottom: 20px;
 }
-
+.edit-input{
+  width: 100% !important;
+  height: 100% !important;
+}
 .todo-input input {
   flex: 1;
   padding: 12px;
